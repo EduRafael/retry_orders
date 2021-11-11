@@ -1,0 +1,25 @@
+{
+  "name": "check_orders",
+  "version": "0.0.1",
+  "description": "Servira para revisar el estado de un listado de ordenes en vtex y sales order ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ./src/server/index.js",
+    "dev": "nodemon ./src/server/index.js "
+  },
+  "author": "Edu Rafael",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-http-context": "^1.2.4",
+    "node-fetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15"
+  }
+}
