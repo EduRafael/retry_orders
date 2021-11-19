@@ -14,6 +14,11 @@ const get_sales_order = async (orderId) => {
 
   const result = await _GET(params);
 
+  console.log({
+    orderSO: orderId,
+    result: (result && result.flow_stage) || null,
+  });
+
   return (result && result.flow_stage) || null;
 };
 
@@ -28,6 +33,8 @@ const get_order_vtex = async (orderId) => {
   };
 
   const result = await _GET(params);
+
+  console.log({ orderVTEX: orderId, result: (result && "Ok") || "NoOk" });
 
   return parse_vtex(result);
 };
