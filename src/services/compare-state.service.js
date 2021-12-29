@@ -70,13 +70,13 @@ const validate_order_vtex = async (order_vtex, item) => {
           userProfileId: order_vtex.clientProfileData.userProfileId,
         });
 
-        return {
-          orderId: item,
-          status_vtex: order_vtex.status,
-          status_so: "N/A",
-          error_in_operator: "Error en customer en SO",
-          userProfileId: order_vtex.clientProfileData.userProfileId,
-        };
+        // return {
+        //   orderId: item,
+        //   status_vtex: order_vtex.status,
+        //   status_so: "N/A",
+        //   error_in_operator: "Error en customer en SO",
+        //   userProfileId: order_vtex.clientProfileData.userProfileId,
+        // };
       }
     } catch (error) {
       console.log({ error, message: "User profile not found" });

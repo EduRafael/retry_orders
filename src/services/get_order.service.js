@@ -35,6 +35,7 @@ const get_order_vtex = async (orderId) => {
   const result = await _GET(params);
 
   console.log({ orderVTEX: orderId, result: (result && "Ok") || "NoOk" });
+
   return parse_vtex(result);
 };
 
