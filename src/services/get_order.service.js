@@ -1,7 +1,7 @@
 const { _GET, _POST } = require("../utils/axios.utils");
 const config = require("../../config");
 const { parse_sales_order, parse_vtex } = require("./mapper/order.mapper");
-const { TYPE } = require("./../constants");
+const { TYPE } = require("../constants");
 
 const get_sales_order = async (orderId) => {
   const params = {
@@ -35,7 +35,6 @@ const get_order_vtex = async (orderId) => {
   const result = await _GET(params);
 
   console.log({ orderVTEX: orderId, result: (result && "Ok") || "NoOk" });
-
   return parse_vtex(result);
 };
 
@@ -50,4 +49,44 @@ const retry_order = async (orderId) => {
 
   return result;
 };
-module.exports = { get_sales_order, get_order_vtex, retry_order };
+
+const retry_order_hook = async (orderId) => {
+  try {
+    const { vtex } = config;
+
+    const params = {
+      url: vtex.hookUrl,
+      headers: {
+        apikey: vtex.hookApiKey,
+        "Content-Type": "application/json",
+      },
+      body: {
+        Domain: "Marketplace",
+        OrderId: orderId,
+        State: "payment-approved",
+        LastState: "approve-payment",
+        LastChange: new Date().toISOString(),
+        CurrentChange: new Date().toISOString(),
+        Origin: {
+          Account: "arcencohogareasy",
+          Key: vtex.appkey,
+        },
+      },
+    };
+
+    const result = await _POST(params);
+
+    return result;
+  } catch (error) {
+    console.log({ ERROR_HOOK: error.message });
+
+    return "no se pudo hacer retry";
+  }
+};
+
+module.exports = {
+  get_sales_order,
+  get_order_vtex,
+  retry_order,
+  retry_order_hook,
+};
